@@ -7,6 +7,7 @@ class Course(models.Model):
     name = models.CharField(max_length=100, verbose_name='Course_name')
     preview = models.ImageField(upload_to='course_image', verbose_name='Course_preview', **NULLABLE)
     description = models.TextField(verbose_name='Course_description')
+    owner = models.ForeignKey('users.User', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
@@ -23,6 +24,7 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='Lesson_description')
     preview = models.ImageField(upload_to='lesson_image', verbose_name='Lesson_preview', **NULLABLE)
     video_url = models.URLField(verbose_name='Lesson_video', **NULLABLE)
+    owner = models.ForeignKey('users.User', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
