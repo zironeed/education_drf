@@ -14,7 +14,7 @@ class IsModerator(BasePermission):
 class IsOwner(BasePermission):
 
     def has_object_permission(self, request, view, obj):
-        return request.user == obj.owner
+        return request.user == obj.user
 
 
 class UserPermission(BasePermission):
@@ -22,12 +22,12 @@ class UserPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
         if view.action == 'destroy':
 
-            if obj.owner == request.user:
+            if obj.user == request.user:
                 return True
 
         elif view.action in ['update', 'retrieve']:
 
-            if obj.owner == request.user:
+            if obj.user == request.user:
                 return True
 
             elif request.user.role == UserRoles.MODERATOR:
